@@ -35,7 +35,7 @@ while True:
         lmlist1 = hand1["lmList"]
 
         # print lmlist1
-        print(lmlist1)
+        #print(lmlist1)
 
         # check for second hand
         if len(hands) > 1 and not crop:
@@ -66,10 +66,10 @@ while True:
                     minY = y
 
             # set min and max points so cropped image is larger
-            minX -= 50
-            minY -= 50
-            maxX += 50
-            maxY += 50
+            minX -= 100
+            minY -= 100
+            maxX += 100
+            maxY += 100
 
             # make sure points are in bounds
             if minX < 0:
@@ -84,21 +84,24 @@ while True:
             # set points list to crop image using min and max cords
             newPoints = np.int32([[minX, minY], [maxX, maxY]])
 
+            # print new points
+            print(newPoints)
+
             # crop image
             if maxX > minX and maxY > minY:
-                img = img[minY: maxY - minY, minX: maxX - minX]
+                img = img[minY: maxY, minX: maxX]
 
     # show the image
     cv2.imshow("image", img)
 
     # q breaks from loop
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        crop = not crop
+        print(crop)
 
     # e crops video to show only the hand
-    # if cv2.waitKey(1) & 0xFF == ord('e'):
-    #     crop = not crop
-    #     print (crop)
+    if cv2.waitKey(1) & 0xFF == ord('e'):
+        break
 
 # After the loop release the cap object
 cam.release()
