@@ -1,28 +1,31 @@
+# Jackson Varzali
+# HandTracker uses google mediapipe to track hands from still frames
+# captured from a video
+
 # imports
 import numpy as np
 from cvzone.HandTrackingModule import HandDetector
 import cv2
+from SignLanguageRecognition import *
 
-# initialize camera
-cam = cv2.VideoCapture(0)
+# method is called from main
+def trackHands(read, points, image):
 
-# initialize variables
-crop = True
-width, height = 0, 0
+    # initialize variables
+    crop = True
+    width, height = 0, 0
 
-# readASL variable runs SignLanguageRecognition when set to true
-# showPoints shows hand tracking keypoints when set to true
-readASL = False
-showPoints = False
+    # readASL variable runs SignLanguageRecognition when set to true
+    # showPoints shows hand tracking keypoints when set to true
+    readASL = read
+    showPoints = points
+    img1 = image
 
-# initialize hand tracker
-tracker = HandDetector(False, 2, 1, 0.5, 0.5)
+    # initialize hand tracker
+    tracker = HandDetector(False, 2, 1, 0.5, 0.5)
 
-# tracker = HandDetector(maxHands=2, detectionCon=0.8)
-while True:
-
-    # read camera input
-    success, img1 = cam.read()
+    # loop continously runs
+    # while True:
 
     # get width and height of image
     width, height = img1.shape[:2]
@@ -103,18 +106,11 @@ while True:
     else:
         # display image with or without keypoints based on showPoints
         if showPoints:
-            print("temp")
+            readCurrentLetter(img)
+        else:
+            readCurrentLetter(img1)
 
-    # q breaks from loop
+    # q crops/uncrops image
     if cv2.waitKey(1) & 0xFF == ord('q'):
         crop = not crop
         print(crop)
-
-    # e crops video to show only the hand
-    if cv2.waitKey(1) & 0xFF == ord('e'):
-        break
-
-# After the loop release the cap object
-cam.release()
-# Destroy all the windows
-cv2.destroyAllWindows()
