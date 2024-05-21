@@ -10,6 +10,11 @@ cam = cv2.VideoCapture(0)
 crop = True
 width, height = 0, 0
 
+# readASL variable runs SignLanguageRecognition when set to true
+# showPoints shows hand tracking keypoints when set to true
+readASL = False
+showPoints = False
+
 # initialize hand tracker
 tracker = HandDetector(False, 2, 1, 0.5, 0.5)
 
@@ -17,13 +22,13 @@ tracker = HandDetector(False, 2, 1, 0.5, 0.5)
 while True:
 
     # read camera input
-    success, img = cam.read()
+    success, img1 = cam.read()
 
     # get width and height of image
-    width, height = img.shape[:2]
+    width, height = img1.shape[:2]
 
     # read hand input
-    hands, img = tracker.findHands(img, True, True)
+    hands, img = tracker.findHands(img1, True, True)
 
     # check if any hands are detected
     if hands:
@@ -91,8 +96,14 @@ while True:
             if maxX > minX and maxY > minY:
                 img = img[minY: maxY, minX: maxX]
 
-    # show the image
-    cv2.imshow("image", img)
+    # show the image if readASL is false
+    if not readASL:
+        # display image with keypoints
+        cv2.imshow("image", img)
+    else:
+        # display image with or without keypoints based on showPoints
+        if showPoints:
+
 
     # q breaks from loop
     if cv2.waitKey(1) & 0xFF == ord('q'):
