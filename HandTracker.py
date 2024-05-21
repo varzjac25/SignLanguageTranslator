@@ -103,7 +103,7 @@ while True:
     else:
         # display image with or without keypoints based on showPoints
         if showPoints:
-
+            print("temp")
 
     # q breaks from loop
     if cv2.waitKey(1) & 0xFF == ord('q'):
