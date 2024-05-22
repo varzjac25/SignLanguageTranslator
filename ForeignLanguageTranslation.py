@@ -11,7 +11,10 @@ translator = Translator()
 
 # langDict translates language names into the required shorthand for Google translation
 langDict = {
-
+    "Spanish": "es",
+    "Chinese":"zh-CN",
+    "Italian":"it"
+    # add more languages
 }
 
 # translateForeign is called from main class
