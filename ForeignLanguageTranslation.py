@@ -11,14 +11,16 @@ translator = Translator()
 
 # langDict translates language names into the required shorthand for Google translation
 langDict = {
-    "Spanish": "es",
-    "Chinese":"zh-CN",
-    "Italian":"it"
+    "spanish" : "es",
+    "chinese" : "zh-CN",
+    "italian" : "it"
+
     # add more languages
+
 }
 
 # translateForeign is called from main class
-def translateForeign(input, outLanguage):
+def translateForeign(input, outLanguage) -> str:
 
     # translate to english
     if outLanguage.lower() == "english":
@@ -36,9 +38,11 @@ def translateForeign(input, outLanguage):
         if langDict.__contains__(outLanguage.lower()):
 
             # convert language title into shorthand
+            for key in langDict.keys():
+                outLanguage = outLanguage.lower().replace(key, langDict[key])
 
             # translate language
-            translation = translator.translate(input, dest = "ar")
+            translation = translator.translate(input, dest = outLanguage)
 
             # return translation
             return translation.text

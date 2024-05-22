@@ -33,14 +33,29 @@ while True:
 
         # call translateForeign from ForeignLanguageTranslation Class
         # first parameter is input text, second parameter is output language
-        txt = "hola"
-        language = "English"
+
+        # test case 1
+        txt = "buenas dias mi amigo"
+        language = "EngLiSh"
         print(translateForeign(txt, language))
+
+        # test case 2
+        txt = "good morning my friend"
+        language = "chineSE"
+        print(translateForeign(txt, language))
+
+        # test case 3
+        txt = "buenas dias mi amigo"
+        language = "xxx"
+        print(translateForeign(txt, language))
+
+        break
 
     else:
         break
 
 # After the loop release the cap object
 cam.release()
+
 # Destroy all the windows
 cv2.destroyAllWindows()
