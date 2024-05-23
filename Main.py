@@ -16,11 +16,14 @@ foreign = True
 # initialize camera
 cam = cv2.VideoCapture(0)
 
+# get translation type
+trans = input("Translate From: ")[0:3].lower()
+
 # loop continously runs until broken
 while True:
 
     # if video is true record and call hand tracker class
-    if video:
+    if trans == "asl" or trans == "vid":
 
         # read camera input
         success, image = cam.read()
@@ -29,27 +32,21 @@ while True:
         trackHands(readASL, showPoints, image)
 
     # if foreign is true call ForeignLanguageTranslation to translate
-    elif foreign:
+    elif trans == "for":
 
         # call translateForeign from ForeignLanguageTranslation Class
         # first parameter is input text, second parameter is output language
 
-        # test case 1
-        txt = "buenas dias mi amigo"
-        language = "EngLiSh"
-        print(translateForeign(txt, language))
+        # get text input from user
+        txt = input("Text (type /q to quit): ")
 
-        # test case 2
-        txt = "good morning my friend"
-        language = "chineSE"
-        print(translateForeign(txt, language))
-
-        # test case 3
-        txt = "buenas dias mi amigo"
-        language = "xxx"
-        print(translateForeign(txt, language))
-
-        break
+        # break for loop based on user input
+        if txt == "/q":
+            break
+        else:
+            # relay user input to foreign language translation
+            language = input("Translate to: ")
+            print(translateForeign(txt, language))
 
     else:
         break

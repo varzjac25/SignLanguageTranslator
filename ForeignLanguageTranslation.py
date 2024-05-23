@@ -13,7 +13,8 @@ translator = Translator()
 langDict = {
     "spanish" : "es",
     "chinese" : "zh-CN",
-    "italian" : "it"
+    "italian" : "it",
+    "arabic" : "ar"
 
     # add more languages
 
