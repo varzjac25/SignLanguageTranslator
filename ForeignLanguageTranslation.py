@@ -42,7 +42,7 @@ def translateForeign(input, outLanguage) -> str:
                 outLanguage = outLanguage.lower().replace(key, langDict[key])
 
             # translate language
-            translation = translator.translate(input, dest = outLanguage)
+            translation = translator.translate(input, dest = outLanguage    )
 
             # return translation
             return translation.text
