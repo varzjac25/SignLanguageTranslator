@@ -40,7 +40,7 @@ while True:
         # get text input from user
         txt = input("Text (type /q to quit): ")
 
-        # break for loop based on user input
+        # break for loop based on user inputsa
         if txt == "/q":
             break
         else:
