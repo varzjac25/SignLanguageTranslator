@@ -19,10 +19,17 @@ cam = cv2.VideoCapture(0)
 # get translation type
 trans = input("Translate From: ")[0:3].lower()
 
+# if translation type is vid prepare data
+if trans == "asl" or trans == "vid":
+    print("preparing")
+    prepareData()
+    loadClassifier()
+    print("done")
+
 # loop continously runs until broken
 while True:
 
-    # if video is true record and call hand tracker class
+    # if translation type is vid record and call hand tracker class
     if trans == "asl" or trans == "vid":
 
         # read camera input

@@ -12,13 +12,13 @@ from SignLanguageRecognition import *
 def trackHands(read, points, image):
 
     # initialize variables
-    crop = True
+    crop = False
     width, height = 0, 0
 
     # readASL variable runs SignLanguageRecognition when set to true
     # showPoints shows hand tracking keypoints when set to true
-    readASL = read
-    showPoints = points
+    readASL = True
+    showPoints = False
     img1 = image
 
     # initialize hand tracker
