@@ -15,8 +15,6 @@ langDict = {
     "italian" : "it",
     "arabic" : "ar"
 
-    # add more languages
-
 }
 
 # translateForeign is called from main class
