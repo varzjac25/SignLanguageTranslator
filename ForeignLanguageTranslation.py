@@ -1,4 +1,3 @@
-# Jackson Varzali
 # ForeignLanguageTranslation translates written language from various
 # languages into other languages
 

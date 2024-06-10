@@ -1,4 +1,3 @@
-# Jackson Varzali
 # Main runs other python classes based off user input,
 # uses other classes to translate from different language mediums
 
@@ -21,10 +20,10 @@ trans = input("Translate From: ")[0:3].lower()
 
 # if translation type is vid prepare data
 if trans == "asl" or trans == "vid":
-    print("preparing")
-    prepareData()
-    loadClassifier()
-    print("done")
+    sameLetter = 0
+    firstLetter = True
+    oldLetter = ''
+    letter = ''
 
 # loop continously runs until broken
 while True:
@@ -36,7 +35,24 @@ while True:
         success, image = cam.read()
 
         # calls trackHands from HandTracker class
-        trackHands(readASL, showPoints, image)
+        letter = trackHands(readASL, showPoints, image)
+
+        # set oldLetter to letter if its the first runthrough of the loop
+        if firstLetter:
+
+            # print letter
+            firstLetter = False
+            oldLetter = letter
+            print(letter)
+
+        # print letter if it is a new letter or has been held up for long enough
+        if oldLetter != letter:
+            print(letter)
+        elif sameLetter >= 100:
+            print(letter)
+            sameLetter = 0
+        else:
+            sameLetter += 1
 
     # if foreign is true call ForeignLanguageTranslation to translate
     elif trans == "for":
@@ -54,6 +70,10 @@ while True:
             # relay user input to foreign language translation
             language = input("Translate to: ")
             print(translateForeign(txt, language))
+
+    # if translation type is audio call AudioTranslation to translate
+    elif tran == "aud":
+
 
     else:
         break

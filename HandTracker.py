@@ -1,4 +1,3 @@
-# Jackson Varzali
 # HandTracker uses google mediapipe to track hands from still frames
 # captured from a video
 
@@ -6,7 +5,7 @@
 import numpy as np
 from cvzone.HandTrackingModule import HandDetector
 import cv2
-from SignLanguageRecognition import *
+from SignLanguageTranslation import *
 
 # method is called from main
 def trackHands(read, points, image):
@@ -17,8 +16,8 @@ def trackHands(read, points, image):
 
     # readASL variable runs SignLanguageRecognition when set to true
     # showPoints shows hand tracking keypoints when set to true
-    readASL = True
-    showPoints = False
+    readASL = read
+    showPoints = points
     img1 = image
 
     # initialize hand tracker
@@ -106,9 +105,9 @@ def trackHands(read, points, image):
     else:
         # display image with or without keypoints based on showPoints
         if showPoints:
-            readCurrentLetter(img)
+            return(translate(img))
         else:
-            readCurrentLetter(img1)
+            return(translate(img1))
 
     # q crops/uncrops image
     if cv2.waitKey(1) & 0xFF == ord('q'):
