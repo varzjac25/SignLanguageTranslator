@@ -109,7 +109,7 @@ def trackHands(read, points, image):
         else:
             return(translate(img1))
 
-    # q crops/uncrops image
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    # e crops/uncrops image
+    if cv2.waitKey(1) & 0xFF == ord('e'):
         crop = not crop
         print(crop)

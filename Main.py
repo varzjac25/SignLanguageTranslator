@@ -5,6 +5,7 @@
 import cv2
 from HandTracker import *
 from ForeignLanguageTranslation import *
+from AudioTranslation import *
 
 # declare variables
 video = False
@@ -17,6 +18,7 @@ cam = cv2.VideoCapture(0)
 
 # get translation type
 trans = input("Translate From: ")[0:3].lower()
+transTo = input("Translate To: ")[0:3].lower()
 
 # if translation type is vid prepare data
 if trans == "asl" or trans == "vid":
@@ -25,8 +27,18 @@ if trans == "asl" or trans == "vid":
     oldLetter = ''
     letter = ''
 
+# message in english is the message that will be translated
+messageInEnglish = ""
+
+if trans == "eng":
+    messageInEnglish = input("Enter message: ")
+
 # loop continously runs until broken
 while True:
+
+    # q breaks loop
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
     # if translation type is vid record and call hand tracker class
     if trans == "asl" or trans == "vid":
@@ -47,12 +59,15 @@ while True:
 
         # print letter if it is a new letter or has been held up for long enough
         if oldLetter != letter:
-            print(letter)
+            messageInEnglish += letter
         elif sameLetter >= 100:
-            print(letter)
+            messageInEnglish += letter
             sameLetter = 0
         else:
             sameLetter += 1
+
+        if letter == "delete":
+            break
 
     # if foreign is true call ForeignLanguageTranslation to translate
     elif trans == "for":
@@ -72,11 +87,20 @@ while True:
             print(translateForeign(txt, language))
 
     # if translation type is audio call AudioTranslation to translate
-    elif tran == "aud":
+    elif trans == "aud":
 
+        # save message in english
+        messageInEnglish = recordText()
+        break
 
     else:
         break
+
+# print messageInEnglish in selected translation type
+if transTo == "eng":
+    print(messageInEnglish)
+elif transTo == "aud":
+    outputAudio(messageInEnglish)
 
 # After the loop release the cap object
 cam.release()
