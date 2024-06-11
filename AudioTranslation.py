@@ -42,14 +42,8 @@ def recordText():
 def outputAudio(input):
 
     # output audio using gTTS
-    audio = gTTS(text = input, lang = 'en', slow = False)
+    audio = gTTS(text=input, lang='en', slow=False)
 
     # save and play audio file
     audio.save("temp.mp3")
     os.system("start temp.mp3")
-
-    # remove temp file
-    try:
-        os.remove("temp.mp3")
-    except:
-        print("file not found")

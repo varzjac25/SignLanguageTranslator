@@ -134,12 +134,15 @@ def translateForeign(input, outLanguage) -> str:
     # translating into languages other than english
     else:
 
+        # swap dictionary keys and values
+        swappedDict = dict((v, k) for k, v in langDict.items())
+
         # check if language entered is a valid language
-        if langDict.__contains__(outLanguage.lower()):
+        if swappedDict.__contains__(outLanguage.lower()):
 
             # convert language title into shorthand
-            for key in langDict.keys():
-                outLanguage = outLanguage.lower().replace(key, langDict[key])
+            for key in swappedDict.keys():
+                outLanguage = outLanguage.lower().replace(key, swappedDict[key])
 
             # translate language
             translation = translator.translate(input, dest = outLanguage    )

@@ -3,7 +3,7 @@
 
 # imports
 import cv2
-from HandTracker import *
+#from HandTracker import *
 from ForeignLanguageTranslation import *
 from AudioTranslation import *
 
@@ -30,7 +30,7 @@ if trans == "asl" or trans == "vid":
 # message in english is the message that will be translated
 messageInEnglish = ""
 
-if trans == "eng":
+if trans == "eng" or trans == "for":
     messageInEnglish = input("Enter message: ")
 
 # loop continously runs until broken
@@ -47,7 +47,7 @@ while True:
         success, image = cam.read()
 
         # calls trackHands from HandTracker class
-        letter = trackHands(readASL, showPoints, image)
+        #letter = trackHands(readASL, showPoints, image)
 
         # set oldLetter to letter if its the first runthrough of the loop
         if firstLetter:
@@ -74,17 +74,8 @@ while True:
 
         # call translateForeign from ForeignLanguageTranslation Class
         # first parameter is input text, second parameter is output language
-
-        # get text input from user
-        txt = input("Text (type /q to quit): ")
-
-        # break for loop based on user inputsa
-        if txt == "/q":
-            break
-        else:
-            # relay user input to foreign language translation
-            language = input("Translate to: ")
-            print(translateForeign(txt, language))
+        messageInEnglish = translateForeign(messageInEnglish, "english")
+        break
 
     # if translation type is audio call AudioTranslation to translate
     elif trans == "aud":
@@ -101,6 +92,8 @@ if transTo == "eng":
     print(messageInEnglish)
 elif transTo == "aud":
     outputAudio(messageInEnglish)
+elif transTo == "for":
+    print(translateForeign(messageInEnglish, input("Language to translate to: ")))
 
 # After the loop release the cap object
 cam.release()
